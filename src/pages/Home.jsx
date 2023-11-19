@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { SearchContext } from "../App";
 
 import Sort from "../components/Sort";
 import Categories from "../components/Categories";
@@ -17,7 +17,7 @@ const Home = () => {
     name: "популярности (убыв)",
     sortProperty: "rating desc",
   });
-  const searchValue = useOutletContext();
+  const { searchValue } = useContext(SearchContext);
 
   const pageRange = 4;
   const pageCount = Math.ceil(10 / pageRange);
