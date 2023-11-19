@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 
-import emptyCart from "../assets/img/empty-cart.png";
+import emptyCart from "../../assets/img/empty-cart.png";
 
-const Cart = () => {
+const EmptyCart = () => {
   return (
     <div className="container container--cart">
       <div className="cart cart--empty">
@@ -23,4 +23,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default EmptyCart;
