@@ -1,10 +1,47 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addToCart, useCart } from "../../redux/slices/cartSlice";
 
-const PizzaBlock = ({ title, types, sizes, price, imageUrl }) => {
+const PizzaBlock = ({ id, title, types, sizes, price, imageUrl }) => {
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
 
-  const typeNames = ["тонкое", "традиционное"];
+  const [itemCount, setItemCount] = useState(0);
+
+  const cart = useCart();
+
+  const dispatch = useDispatch();
+
+  const typeNames = useMemo(() => {
+    return ["тонкое", "традиционное"];
+  }, []);
+
+  useEffect(() => {
+    const objInCart = cart.find((item) => {
+      return (
+        item.id === id && item.size === sizes[activeSize] && item.type === typeNames[activeType]
+      );
+    });
+
+    if (objInCart) {
+      setItemCount(objInCart.qty);
+    } else {
+      setItemCount(0);
+    }
+  }, [cart, id, activeSize, activeType, typeNames, sizes]);
+
+  const handleOnAddItem = () => {
+    // setItemCount(itemCount + 1);
+    const action = addToCart({
+      id,
+      title,
+      price,
+      qty: 1,
+      size: sizes[activeSize],
+      type: typeNames[activeType],
+    });
+    dispatch(action);
+  };
 
   return (
     <div className="pizza-block">
@@ -34,7 +71,7 @@ const PizzaBlock = ({ title, types, sizes, price, imageUrl }) => {
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">от {price} ₽</div>
-        <div className="button button--outline button--add">
+        <div className="button button--outline button--add" onClick={handleOnAddItem}>
           <svg
             width="12"
             height="12"
@@ -47,7 +84,7 @@ const PizzaBlock = ({ title, types, sizes, price, imageUrl }) => {
             />
           </svg>
           <span>Добавить</span>
-          <i>0</i>
+          <i>{itemCount}</i>
         </div>
       </div>
     </div>
