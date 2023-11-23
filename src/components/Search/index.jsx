@@ -1,12 +1,37 @@
 import { useDispatch } from "react-redux";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-import { setSearchValue, useFilter } from "../../redux/slices/filterSlice";
+import { setSearchValue } from "../../redux/slices/filterSlice";
+import debounce from "../../utils/debounce";
 import styles from "./search.module.scss";
 
 const Search = () => {
-  const { searchValue } = useFilter();
+  const [inputValue, setInputValue] = useState("");
+  const searchRef = useRef();
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    searchRef.current.focus();
+  });
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const updateSearchValue = useCallback(
+    debounce((value) => {
+      dispatch(setSearchValue(value));
+    }, 250),
+    [],
+  );
+
+  const handleOnSearchChange = (e) => {
+    setInputValue(e.target.value);
+    updateSearchValue(e.target.value);
+  };
+
+  const handleOnClearSearch = () => {
+    setInputValue("");
+    updateSearchValue("");
+  };
 
   return (
     <div className={styles.root}>
@@ -16,10 +41,10 @@ const Search = () => {
           <path d="M29.71,28.29l-6.5-6.5-.07,0a12,12,0,1,0-1.39,1.39s0,.05,0,.07l6.5,6.5a1,1,0,0,0,1.42,0A1,1,0,0,0,29.71,28.29ZM14,24A10,10,0,1,1,24,14,10,10,0,0,1,14,24Z" />
         </g>
       </svg>
-      {searchValue && (
+      {inputValue && (
         <svg
           className={styles.closeIcon}
-          onClick={() => dispatch(setSearchValue(""))}
+          onClick={handleOnClearSearch}
           height="48"
           viewBox="0 0 48 48"
           width="48"
@@ -31,8 +56,9 @@ const Search = () => {
       <input
         className={styles.input}
         placeholder="Поиск пиццы..."
-        onChange={(e) => dispatch(setSearchValue(e.target.value))}
-        value={searchValue}
+        onChange={handleOnSearchChange}
+        value={inputValue}
+        ref={searchRef}
       />
     </div>
   );

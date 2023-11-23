@@ -8,7 +8,6 @@ const Categories = () => {
   const dispatch = useDispatch();
 
   const categories = ["Все", "Мясные", "Вегетарианская", "Гриль", "Острые", "Закрытые"];
-
   return (
     <div className="categories">
       <ul>

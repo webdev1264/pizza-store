@@ -1,7 +1,8 @@
 import { useDispatch } from "react-redux";
 import { addOneItem, removeFromCart, removeOneItem } from "../../redux/slices/cartSlice";
 
-const PizzaBlock = ({ id, title, qty, type, size, price }) => {
+const PizzaBlock = (props) => {
+  const { id, title, qty, type, size, price } = props;
   const dispatch = useDispatch();
 
   return (
@@ -21,7 +22,7 @@ const PizzaBlock = ({ id, title, qty, type, size, price }) => {
       </div>
       <div className="cart__item-count">
         <div
-          onClick={() => dispatch(removeOneItem({ id, size, type }))}
+          onClick={() => dispatch(removeOneItem(props))}
           className="button button--outline button--circle cart__item-count-minus">
           <svg
             width="10"
@@ -41,7 +42,7 @@ const PizzaBlock = ({ id, title, qty, type, size, price }) => {
         </div>
         <b>{qty}</b>
         <div
-          onClick={() => dispatch(addOneItem({ id, size, type }))}
+          onClick={() => dispatch(addOneItem(props))}
           className="button button--outline button--circle cart__item-count-plus">
           <svg
             width="10"
@@ -61,7 +62,7 @@ const PizzaBlock = ({ id, title, qty, type, size, price }) => {
         </div>
       </div>
       <div className="cart__item-price">
-        <b>{price} ₽</b>
+        <b>{price * qty} ₽</b>
       </div>
       <div
         onClick={() => dispatch(removeFromCart({ id, size, type }))}

@@ -1,25 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
-import isItemEqual from "../../utils/isItemEqual";
 
-const initialState = [
-  {
-    id: 7,
-    title: "Маргарита",
-    price: 450,
-    qty: 2,
-    size: 26,
-    type: "тонкое",
-  },
-  {
-    id: 7,
-    title: "Маргарита",
-    price: 450,
-    qty: 1,
-    size: 30,
-    type: "тонкое",
-  },
-];
+import { isItemEqual } from "../../utils/itemsHelpers";
+
+const initialState = [];
 const cartSlice = createSlice({
   name: "cart",
   initialState,
@@ -44,6 +28,9 @@ const cartSlice = createSlice({
       );
     },
     removeOneItem(state, action) {
+      if (action.payload.qty <= 1) {
+        return state.filter((item) => !isItemEqual(item, action.payload));
+      }
       return state.map((item) =>
         isItemEqual(item, action.payload) ? { ...item, qty: item.qty - 1 } : item,
       );

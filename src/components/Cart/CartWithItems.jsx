@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 
 import PizzaBlock from "./PizzaBlock";
 import { clearCart, useCart } from "../../redux/slices/cartSlice";
+import { totalItems, totalPrice } from "../../utils/itemsHelpers";
 
 const CartWithItems = () => {
   const cart = useCart();
@@ -92,11 +93,11 @@ const CartWithItems = () => {
           <div className="cart__bottom-details">
             <span>
               {" "}
-              Всего пицц: <b>3 шт.</b>{" "}
+              Всего пицц: <b>{totalItems(cart)} шт.</b>{" "}
             </span>
             <span>
               {" "}
-              Сумма заказа: <b>900 ₽</b>{" "}
+              Сумма заказа: <b>{totalPrice(cart)} ₽</b>{" "}
             </span>
           </div>
           <div className="cart__bottom-buttons">
