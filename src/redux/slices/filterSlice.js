@@ -27,11 +27,17 @@ const filterSlice = createSlice({
     setSearchValue(state, action) {
       state.searchValue = action.payload;
     },
+    setFilters(state, action) {
+      state.categoryId = action.payload.categoryId;
+      state.currentPage = action.payload.currentPage;
+      state.sortType = action.payload.sortType;
+    },
   },
 });
 
 export const useFilter = () => useSelector((state) => state.filter);
 
-export const { setCategoryId, setCurrentPage, setSortType, setSearchValue } = filterSlice.actions;
+export const { setCategoryId, setCurrentPage, setSortType, setSearchValue, setFilters } =
+  filterSlice.actions;
 
 export default filterSlice.reducer;

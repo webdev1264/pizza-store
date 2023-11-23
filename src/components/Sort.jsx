@@ -3,19 +3,19 @@ import { useDispatch } from "react-redux";
 
 import { setSortType, useFilter } from "../redux/slices/filterSlice";
 
+export const sortList = [
+  { name: "популярности (убыв)", sortProperty: "rating desc" },
+  { name: "популярности (возр)", sortProperty: "rating asc" },
+  { name: "цене (убыв)", sortProperty: "price desc" },
+  { name: "цене (возр)", sortProperty: "price asc" },
+  { name: "алфавиту (убыв)", sortProperty: "title desc" },
+  { name: "алфавиту (возр)", sortProperty: "title asc" },
+];
+
 const Sort = () => {
   const [open, setOpen] = useState(false);
   const { sortType } = useFilter();
   const dispatch = useDispatch();
-
-  const list = [
-    { name: "популярности (убыв)", sortProperty: "rating desc" },
-    { name: "популярности (возр)", sortProperty: "rating asc" },
-    { name: "цене (убыв)", sortProperty: "price desc" },
-    { name: "цене (возр)", sortProperty: "price asc" },
-    { name: "алфавиту (убыв)", sortProperty: "title desc" },
-    { name: "алфавиту (возр)", sortProperty: "title asc" },
-  ];
 
   const handleSelectedChange = (i) => {
     dispatch(setSortType(i));
@@ -42,7 +42,7 @@ const Sort = () => {
       {open && (
         <div className="sort__popup">
           <ul>
-            {list.map((sortObj, i) => (
+            {sortList.map((sortObj, i) => (
               <li
                 key={i}
                 className={sortType.name === sortObj.name ? "active" : ""}

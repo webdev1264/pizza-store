@@ -1,3 +1,5 @@
+import { sortList } from "../components/Sort";
+
 const isItemEqual = (obj1, obj2) => {
   return obj1.id === obj2.id && obj1.type === obj2.type && obj1.size === obj2.size;
 };
@@ -16,4 +18,8 @@ const totalPrice = (cart) => {
   }, 0);
 };
 
-export { isItemEqual, totalItems, totalPrice };
+const findSortType = (sortProperty) => {
+  return sortList.find((sortObj) => sortObj.sortProperty === sortProperty);
+};
+
+export { isItemEqual, totalItems, totalPrice, findSortType };

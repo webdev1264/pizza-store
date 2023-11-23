@@ -1,25 +1,65 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import qs from "qs";
 
 import { fetchItems, useIsLoading, useItems } from "../redux/slices/itemsSlice";
-import { useFilter } from "../redux/slices/filterSlice";
+import { setCategoryId, setCurrentPage, setSortType, useFilter } from "../redux/slices/filterSlice";
 import Sort from "../components/Sort";
 import Categories from "../components/Categories";
 import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import Pagination from "../components/Pagination/";
+import { findSortType } from "../utils/itemsHelpers";
 import "../scss/app.scss";
 
 const Home = () => {
   const { sortType, categoryId, searchValue, currentPage } = useFilter();
+  const isSearch = useRef(false);
+  const isMounted = useRef(false);
+  const dispatch = useDispatch();
   const items = useItems();
   const isLoading = useIsLoading();
 
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(fetchItems(`https://6556acbdbd4bcef8b6118adc.mockapi.io/api/items`));
+    console.log("Effect #3");
+    if (isMounted.current) {
+      const queryParams = qs.stringify({
+        sortProperty: sortType.sortProperty,
+        categoryId,
+        currentPage,
+      });
+      navigate(`?${queryParams}`);
+    }
+    isMounted.current = true;
+  }, [sortType, categoryId, currentPage, navigate]);
+
+  useEffect(() => {
+    console.log("Effect #1");
+    if (window.location.search) {
+      const searchParams = qs.parse(window.location.search);
+      const { sortProperty, categoryId, currentPage } = searchParams;
+
+      sortProperty && dispatch(setSortType(findSortType(sortProperty)));
+      categoryId && dispatch(setCategoryId(Number(categoryId)));
+      currentPage && dispatch(setCurrentPage(Number(currentPage)));
+
+      isSearch.current = true;
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    console.log("Effect #2");
+    if (!isSearch.current) {
+      const url = "https://6556acbdbd4bcef8b6118adc.mockapi.io/api/items";
+      dispatch(fetchItems(url));
+    }
+    isSearch.current = false;
   }, [sortType, categoryId, searchValue, currentPage, dispatch]);
+
+  console.log("====Rendered");
 
   return (
     <div className="container">
@@ -33,7 +73,7 @@ const Home = () => {
           ? [...Array(4)].map((_, i) => <Skeleton key={i} />)
           : items.map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />)}
       </div>
-      <Pagination />
+      <Pagination currentPage={currentPage} />
     </div>
   );
 };
