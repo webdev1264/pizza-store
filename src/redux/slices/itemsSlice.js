@@ -20,7 +20,8 @@ export const fetchItems = createAsyncThunk("items/fetchItems", async (url, thunk
     const res = await axios.get(`${url}?${sortBy}${category}${search}${pagination}`);
     return res.data;
   } catch (e) {
-    thunkAPI.rejectWithValue(e);
+    console.error(e);
+    return thunkAPI.rejectWithValue(e.message);
   }
 });
 

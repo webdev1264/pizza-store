@@ -1,29 +1,36 @@
-import React, { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { setSortType, useFilter } from "../redux/slices/filterSlice";
-
-export const sortList = [
-  { name: "популярности (убыв)", sortProperty: "rating desc" },
-  { name: "популярности (возр)", sortProperty: "rating asc" },
-  { name: "цене (убыв)", sortProperty: "price desc" },
-  { name: "цене (возр)", sortProperty: "price asc" },
-  { name: "алфавиту (убыв)", sortProperty: "title desc" },
-  { name: "алфавиту (возр)", sortProperty: "title asc" },
-];
+import { sortList } from "../data/pizzaData";
 
 const Sort = () => {
   const [open, setOpen] = useState(false);
   const { sortType } = useFilter();
   const dispatch = useDispatch();
 
+  const sortRef = useRef();
+
   const handleSelectedChange = (i) => {
     dispatch(setSortType(i));
     setOpen(false);
   };
 
+  useEffect(() => {
+    const eventHandler = (e) => {
+      const isIncluded = e.composedPath().includes(sortRef.current);
+      if (!isIncluded) {
+        setOpen(false);
+      }
+    };
+
+    document.body.addEventListener("click", eventHandler);
+
+    return () => document.body.removeEventListener("click", eventHandler);
+  }, []);
+
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
           width="10"
@@ -37,7 +44,13 @@ const Sort = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{sortType.name}</span>
+        <span
+          onClick={(e) => {
+            setOpen(!open);
+            // e.stopPropagation();
+          }}>
+          {sortType.name}
+        </span>
       </div>
       {open && (
         <div className="sort__popup">

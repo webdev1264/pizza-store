@@ -1,6 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+
 import { addToCart, useCart } from "../../redux/slices/cartSlice";
+import { typeNames } from "../../data/pizzaData";
 
 const PizzaBlock = ({ id, title, types, sizes, price, imageUrl }) => {
   const [activeType, setActiveType] = useState(0);
@@ -11,10 +13,6 @@ const PizzaBlock = ({ id, title, types, sizes, price, imageUrl }) => {
   const cart = useCart();
 
   const dispatch = useDispatch();
-
-  const typeNames = useMemo(() => {
-    return ["тонкое", "традиционное"];
-  }, []);
 
   useEffect(() => {
     const objInCart = cart.find((item) => {
@@ -28,10 +26,9 @@ const PizzaBlock = ({ id, title, types, sizes, price, imageUrl }) => {
     } else {
       setItemCount(0);
     }
-  }, [cart, id, activeSize, activeType, typeNames, sizes]);
+  }, [cart, id, activeSize, activeType, sizes]);
 
   const handleOnAddItem = () => {
-    // setItemCount(itemCount + 1);
     const action = addToCart({
       id,
       title,

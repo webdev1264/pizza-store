@@ -24,7 +24,6 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("Effect #3");
     if (isMounted.current) {
       const queryParams = qs.stringify({
         sortProperty: sortType.sortProperty,
@@ -37,7 +36,6 @@ const Home = () => {
   }, [sortType, categoryId, currentPage, navigate]);
 
   useEffect(() => {
-    console.log("Effect #1");
     if (window.location.search) {
       const searchParams = qs.parse(window.location.search);
       const { sortProperty, categoryId, currentPage } = searchParams;
@@ -51,15 +49,12 @@ const Home = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log("Effect #2");
     if (!isSearch.current) {
-      const url = "https://6556acbdbd4bcef8b6118adc.mockapi.io/api/items";
+      const url = "https://6556acbdbd4bcef8b6118adc.mockapi.io/api/item";
       dispatch(fetchItems(url));
     }
     isSearch.current = false;
   }, [sortType, categoryId, searchValue, currentPage, dispatch]);
-
-  console.log("====Rendered");
 
   return (
     <div className="container">
