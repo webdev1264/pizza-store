@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { addToCart, useCart } from "../../redux/slices/cartSlice";
@@ -8,36 +8,24 @@ const PizzaBlock = ({ id, title, types, sizes, price, imageUrl }) => {
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
 
-  const [itemCount, setItemCount] = useState(0);
-
   const cart = useCart();
+
+  const itemInCart = cart.find(
+    (item) =>
+      item.id === id && item.size === sizes[activeSize] && item.type === typeNames[activeType],
+  );
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const objInCart = cart.find((item) => {
-      return (
-        item.id === id && item.size === sizes[activeSize] && item.type === typeNames[activeType]
-      );
-    });
-
-    if (objInCart) {
-      setItemCount(objInCart.qty);
-    } else {
-      setItemCount(0);
-    }
-  }, [cart, id, activeSize, activeType, sizes]);
-
   const handleOnAddItem = () => {
-    const action = addToCart({
+    const item = addToCart({
       id,
       title,
       price,
-      qty: 1,
       size: sizes[activeSize],
       type: typeNames[activeType],
     });
-    dispatch(action);
+    dispatch(item);
   };
 
   return (
@@ -81,7 +69,7 @@ const PizzaBlock = ({ id, title, types, sizes, price, imageUrl }) => {
             />
           </svg>
           <span>Добавить</span>
-          <i>{itemCount}</i>
+          {itemInCart && <i>{itemInCart.count}</i>}
         </div>
       </div>
     </div>

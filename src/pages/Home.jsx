@@ -50,7 +50,7 @@ const Home = () => {
 
   useEffect(() => {
     if (!isSearch.current) {
-      const url = "https://6556acbdbd4bcef8b6118adc.mockapi.io/api/item";
+      const url = "https://6556acbdbd4bcef8b6118adc.mockapi.io/api/items";
       dispatch(fetchItems(url));
     }
     isSearch.current = false;

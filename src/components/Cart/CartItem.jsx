@@ -1,9 +1,15 @@
 import { useDispatch } from "react-redux";
-import { addOneItem, removeFromCart, removeOneItem } from "../../redux/slices/cartSlice";
+import { addToCart, removeFromCart, removeOneItem } from "../../redux/slices/cartSlice";
 
 const PizzaBlock = (props) => {
-  const { id, title, qty, type, size, price } = props;
+  const { id, title, count, type, size, price } = props;
   const dispatch = useDispatch();
+
+  const handleRemoveFromCard = () => {
+    if (window.confirm("Are you sure?")) {
+      dispatch(removeFromCart({ id, size, type }));
+    }
+  };
 
   return (
     <div className="cart__item">
@@ -40,9 +46,9 @@ const PizzaBlock = (props) => {
             />
           </svg>
         </div>
-        <b>{qty}</b>
+        <b>{count}</b>
         <div
-          onClick={() => dispatch(addOneItem(props))}
+          onClick={() => dispatch(addToCart(props))}
           className="button button--outline button--circle cart__item-count-plus">
           <svg
             width="10"
@@ -62,11 +68,9 @@ const PizzaBlock = (props) => {
         </div>
       </div>
       <div className="cart__item-price">
-        <b>{price * qty} ₽</b>
+        <b>{price * count} ₽</b>
       </div>
-      <div
-        onClick={() => dispatch(removeFromCart({ id, size, type }))}
-        className="cart__item-remove">
+      <div onClick={handleRemoveFromCard} className="cart__item-remove">
         <div className="button button--outline button--circle">
           <svg
             width="10"

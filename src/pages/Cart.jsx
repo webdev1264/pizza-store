@@ -4,7 +4,12 @@ import { useCart } from "../redux/slices/cartSlice";
 
 const Cart = () => {
   const cart = useCart();
-  return <>{cart.length === 0 ? <EmptyCart /> : <CartWithItems />}</>;
+
+  if (cart.length === 0) {
+    return <EmptyCart />;
+  }
+
+  return <CartWithItems />;
 };
 
 export default Cart;

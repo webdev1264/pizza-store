@@ -5,17 +5,11 @@ const isItemEqual = (obj1, obj2) => {
 };
 
 const totalItems = (cart) => {
-  return cart.reduce((sum, item) => {
-    sum += item.qty;
-    return sum;
-  }, 0);
+  return cart.reduce((sum, item) => sum + item.count, 0);
 };
 
 const totalPrice = (cart) => {
-  return cart.reduce((sum, item) => {
-    sum += item.price * item.qty;
-    return sum;
-  }, 0);
+  return cart.reduce((sum, item) => sum + item.price * item.count, 0);
 };
 
 const findSortType = (sortProperty) => {

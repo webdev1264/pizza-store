@@ -10,41 +10,33 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart(state, action) {
-      const itemInCart = state.find((item) => {
-        return isItemEqual(item, action.payload);
-      });
+      const itemInCart = state.find((item) => isItemEqual(item, action.payload));
       if (itemInCart) {
-        return state.map((item) =>
-          isItemEqual(item, action.payload) ? { ...item, qty: item.qty + 1 } : item,
-        );
+        itemInCart.count++;
+      } else {
+        state.push({ ...action.payload, count: 1 });
       }
-      state.push(action.payload);
     },
     removeFromCart(state, action) {
       return state.filter((item) => !isItemEqual(item, action.payload));
     },
-    addOneItem(state, action) {
-      return state.map((item) =>
-        isItemEqual(item, action.payload) ? { ...item, qty: item.qty + 1 } : item,
-      );
-    },
     removeOneItem(state, action) {
-      if (action.payload.qty <= 1) {
+      if (action.payload.count <= 1) {
         return state.filter((item) => !isItemEqual(item, action.payload));
       }
-      return state.map((item) =>
-        isItemEqual(item, action.payload) ? { ...item, qty: item.qty - 1 } : item,
-      );
+      const itemInCart = state.find((item) => isItemEqual(item, action.payload));
+      if (itemInCart) {
+        itemInCart.count--;
+      }
     },
     clearCart() {
-      return [];
+      return initialState;
     },
   },
 });
 
 export const useCart = () => useSelector((state) => state.cart);
 
-export const { addToCart, removeFromCart, addOneItem, removeOneItem, clearCart } =
-  cartSlice.actions;
+export const { addToCart, removeFromCart, removeOneItem, clearCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

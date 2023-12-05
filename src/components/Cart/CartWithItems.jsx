@@ -1,13 +1,19 @@
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import PizzaBlock from "./PizzaBlock";
+import CartItem from "./CartItem";
 import { clearCart, useCart } from "../../redux/slices/cartSlice";
 import { totalItems, totalPrice } from "../../utils/itemsHelpers";
 
 const CartWithItems = () => {
   const cart = useCart();
   const dispatch = useDispatch();
+
+  const handleClearCart = () => {
+    if (window.confirm("Are you sure?")) {
+      dispatch(clearCart());
+    }
+  };
 
   return (
     <div className="container container--cart">
@@ -44,7 +50,7 @@ const CartWithItems = () => {
             </svg>
             Корзина
           </h2>
-          <div onClick={() => dispatch(clearCart())} className="cart__clear">
+          <div onClick={handleClearCart} className="cart__clear">
             <svg
               width="20"
               height="20"
@@ -86,7 +92,7 @@ const CartWithItems = () => {
         </div>
         <div className="content__items">
           {cart.map((pizza) => {
-            return <PizzaBlock key={pizza.title + pizza.size + pizza.type} {...pizza} />;
+            return <CartItem key={pizza.title + pizza.size + pizza.type} {...pizza} />;
           })}
         </div>
         <div className="cart__bottom">
