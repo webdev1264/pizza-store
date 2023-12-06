@@ -6,6 +6,7 @@ import Cart from "./pages/Cart";
 import App from "./App";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
+import PizzaInfo from "./components/PizzaInfo";
 
 const router = createBrowserRouter([
   {
@@ -13,12 +14,16 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "/",
+        path: "",
         element: <Home />,
       },
       {
         path: "cart",
         element: <Cart />,
+      },
+      {
+        path: "pizza/:id",
+        element: <PizzaInfo />,
       },
       {
         path: "*",

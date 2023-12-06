@@ -1,27 +1,34 @@
 import { useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import qs from "qs";
 
-import { fetchItems, useIsLoading, useItems } from "../redux/slices/itemsSlice";
-import { setCategoryId, setCurrentPage, setSortType, useFilter } from "../redux/slices/filterSlice";
+import { fetchItems, selectItems } from "../redux/slices/itemsSlice";
+import {
+  setCategoryId,
+  setCurrentPage,
+  setSortType,
+  selectFilter,
+} from "../redux/slices/filterSlice";
 import Sort from "../components/Sort";
 import Categories from "../components/Categories";
 import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import Pagination from "../components/Pagination/";
+import Error from "../components/Error";
 import { findSortType } from "../utils/itemsHelpers";
 import "../scss/app.scss";
 
 const Home = () => {
-  const { sortType, categoryId, searchValue, currentPage } = useFilter();
+  const { sortType, categoryId, searchValue, currentPage } = useSelector(selectFilter);
   const isSearch = useRef(false);
   const isMounted = useRef(false);
   const dispatch = useDispatch();
-  const items = useItems();
-  const isLoading = useIsLoading();
+  const { items, isLoading, dataFetchError } = useSelector(selectItems);
 
   const navigate = useNavigate();
+
+  const location = useLocation();
 
   useEffect(() => {
     if (isMounted.current) {
@@ -32,12 +39,11 @@ const Home = () => {
       });
       navigate(`?${queryParams}`);
     }
-    isMounted.current = true;
   }, [sortType, categoryId, currentPage, navigate]);
 
   useEffect(() => {
-    if (window.location.search) {
-      const searchParams = qs.parse(window.location.search);
+    if (location.search && !isMounted.current) {
+      const searchParams = qs.parse(location.search.substring(1));
       const { sortProperty, categoryId, currentPage } = searchParams;
 
       sortProperty && dispatch(setSortType(findSortType(sortProperty)));
@@ -46,7 +52,8 @@ const Home = () => {
 
       isSearch.current = true;
     }
-  }, [dispatch]);
+    isMounted.current = true;
+  }, [location.search, dispatch]);
 
   useEffect(() => {
     if (!isSearch.current) {
@@ -56,6 +63,17 @@ const Home = () => {
     isSearch.current = false;
   }, [sortType, categoryId, searchValue, currentPage, dispatch]);
 
+  const pizzas = [...Array(4)].map((_, i) => <Skeleton key={i} />);
+  const skeletons = items.map((pizza) => (
+    <Link key={pizza.id} to={`/pizza/${pizza.id}`}>
+      <PizzaBlock {...pizza} />
+    </Link>
+  ));
+
+  const content = () => {
+    return <div className="content__items">{isLoading ? pizzas : skeletons}</div>;
+  };
+
   return (
     <div className="container">
       <div className="content__top">
@@ -63,11 +81,7 @@ const Home = () => {
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">
-        {isLoading
-          ? [...Array(4)].map((_, i) => <Skeleton key={i} />)
-          : items.map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />)}
-      </div>
+      {dataFetchError ? <Error /> : content()}
       <Pagination currentPage={currentPage} />
     </div>
   );

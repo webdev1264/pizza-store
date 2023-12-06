@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useSelector } from "react-redux";
 
 import { isItemEqual } from "../../utils/itemsHelpers";
 
@@ -35,7 +34,7 @@ const cartSlice = createSlice({
   },
 });
 
-export const useCart = () => useSelector((state) => state.cart);
+export const selectCart = (state) => state.cart;
 
 export const { addToCart, removeFromCart, removeOneItem, clearCart } = cartSlice.actions;
 

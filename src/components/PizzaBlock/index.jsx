@@ -1,21 +1,21 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { addToCart, useCart } from "../../redux/slices/cartSlice";
+import { addToCart, selectCart } from "../../redux/slices/cartSlice";
 import { typeNames } from "../../data/pizzaData";
 
 const PizzaBlock = ({ id, title, types, sizes, price, imageUrl }) => {
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
 
-  const cart = useCart();
+  const cart = useSelector(selectCart);
+  const dispatch = useDispatch();
 
   const itemInCart = cart.find(
     (item) =>
       item.id === id && item.size === sizes[activeSize] && item.type === typeNames[activeType],
   );
 
-  const dispatch = useDispatch();
 
   const handleOnAddItem = () => {
     const item = addToCart({

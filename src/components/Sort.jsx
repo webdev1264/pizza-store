@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { setSortType, useFilter } from "../redux/slices/filterSlice";
+import { setSortType, selectFilter } from "../redux/slices/filterSlice";
 import { sortList } from "../data/pizzaData";
 
 const Sort = () => {
   const [open, setOpen] = useState(false);
-  const { sortType } = useFilter();
+  const { sortType } = useSelector(selectFilter);
   const dispatch = useDispatch();
 
   const sortRef = useRef();

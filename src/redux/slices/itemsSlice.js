@@ -1,8 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { useSelector } from "react-redux";
 import axios from "axios";
 
-const initialState = { items: [], isLoading: true };
+const initialState = { items: [], isLoading: true, dataFetchError: "" };
 
 export const fetchItems = createAsyncThunk("items/fetchItems", async (url, thunkAPI) => {
   const { sortType, categoryId, searchValue, currentPage } = thunkAPI.getState().filter;
@@ -36,14 +35,14 @@ const itemsSlice = createSlice({
       state.items = action.payload;
       state.isLoading = false;
     });
-    builder.addCase(fetchItems.rejected, (state) => {
+    builder.addCase(fetchItems.rejected, (state, action) => {
+      state.items = [];
+      state.dataFetchError = action.payload;
       state.isLoading = false;
     });
   },
 });
 
-export const useItems = () => useSelector((state) => state.items.items);
-
-export const useIsLoading = () => useSelector((state) => state.items.isLoading);
+export const selectItems = (state) => state.items;
 
 export default itemsSlice.reducer;
