@@ -14,7 +14,7 @@ import Sort from "../components/Sort";
 import Categories from "../components/Categories";
 import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
-import Pagination from "../components/Pagination/";
+import Pagination from "../components/Pagination";
 import Error from "../components/Error";
 import { findSortType } from "../utils/itemsHelpers";
 import "../scss/app.scss";
