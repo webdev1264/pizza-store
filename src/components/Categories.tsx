@@ -1,14 +1,14 @@
 import { useSelector } from "react-redux";
 
-import { selectFilter, setCategoryId } from "../redux/slices/filterSlice";
+import { selectCategoryId, setCategoryId } from "../redux/slices/filterSlice";
 import { useAppDispatch } from "../redux/store";
 import { categories } from "../data/pizzaData";
+import { memo } from "react";
 
 const Categories: React.FC = () => {
-  const { categoryId } = useSelector(selectFilter);
+  const categoryId = useSelector(selectCategoryId);
 
   const dispatch = useAppDispatch();
-
   return (
     <div className="categories">
       <ul>
@@ -25,4 +25,4 @@ const Categories: React.FC = () => {
   );
 };
 
-export default Categories;
+export default memo(Categories);

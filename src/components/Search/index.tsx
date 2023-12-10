@@ -1,14 +1,14 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 
-import { selectFilter, setSearchValue } from "../../redux/slices/filterSlice";
+import { selectSearchValue, setSearchValue } from "../../redux/slices/filterSlice";
 import debounce from "../../utils/debounce";
 import styles from "./search.module.scss";
 import { useAppDispatch } from "../../redux/store";
 import { useSelector } from "react-redux";
 
 const Search = () => {
-  const filter = useSelector(selectFilter);
-  const [inputValue, setInputValue] = useState(filter.searchValue);
+  const searchValue = useSelector(selectSearchValue);
+  const [inputValue, setInputValue] = useState(searchValue);
   const searchRef = useRef<HTMLInputElement>(null);
 
   const dispatch = useAppDispatch();
@@ -66,4 +66,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default memo(Search);

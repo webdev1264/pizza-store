@@ -5,6 +5,7 @@ import Search from "./Search";
 import { selectCart } from "../redux/slices/cartSlice";
 import { totalItems, totalPrice } from "../utils/itemsHelpers";
 import pizzaLogo from "../assets/img/pizza-logo.svg";
+import { memo } from "react";
 
 const Header: React.FC = () => {
   const cart = useSelector(selectCart);
@@ -72,4 +73,4 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header;
+export default memo(Header);

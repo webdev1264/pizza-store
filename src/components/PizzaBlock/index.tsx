@@ -71,7 +71,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, title, types, sizes, price,
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">от {price} ₽</div>
-        <div className="button button--outline button--add" onClick={handleOnAddItem}>
+        <button className="button button--outline button--add" onClick={handleOnAddItem}>
           <svg
             width="12"
             height="12"
@@ -85,7 +85,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, title, types, sizes, price,
           </svg>
           <span>Добавить</span>
           {itemInCart && <i>{itemInCart.count}</i>}
-        </div>
+        </button>
       </div>
     </div>
   );

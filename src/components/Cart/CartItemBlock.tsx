@@ -33,7 +33,7 @@ const CartItemBlock: React.FC<CartItemBlockProps> = (props) => {
         </p>
       </div>
       <div className="cart__item-count">
-        <div
+        <button
           onClick={() => dispatch(removeOneItem({ id, type, size, count } as CartItem))}
           className="button button--outline button--circle cart__item-count-minus">
           <svg
@@ -51,9 +51,9 @@ const CartItemBlock: React.FC<CartItemBlockProps> = (props) => {
               fill="#EB5A1E"
             />
           </svg>
-        </div>
+        </button>
         <b>{count}</b>
-        <div
+        <button
           onClick={() => dispatch(addToCart({ id, type, size, count } as CartItem))}
           className="button button--outline button--circle cart__item-count-plus">
           <svg
@@ -71,13 +71,13 @@ const CartItemBlock: React.FC<CartItemBlockProps> = (props) => {
               fill="#EB5A1E"
             />
           </svg>
-        </div>
+        </button>
       </div>
       <div className="cart__item-price">
         <b>{price * count} ₽</b>
       </div>
       <div onClick={handleRemoveFromCard} className="cart__item-remove">
-        <div className="button button--outline button--circle">
+        <button className="button button--outline button--circle">
           <svg
             width="10"
             height="10"
@@ -93,7 +93,7 @@ const CartItemBlock: React.FC<CartItemBlockProps> = (props) => {
               fill="#EB5A1E"
             />
           </svg>
-        </div>
+        </button>
       </div>
     </div>
   );
