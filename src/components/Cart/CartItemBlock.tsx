@@ -1,24 +1,30 @@
-import { useDispatch } from "react-redux";
-import { addToCart, removeFromCart, removeOneItem } from "../../redux/slices/cartSlice";
+import { CartItem, addToCart, removeFromCart, removeOneItem } from "../../redux/slices/cartSlice";
+import { useAppDispatch } from "../../redux/store";
 
-const PizzaBlock = (props) => {
-  const { id, title, count, type, size, price } = props;
-  const dispatch = useDispatch();
+type CartItemBlockProps = {
+  id: string;
+  title: string;
+  count: number;
+  type: string;
+  size: number;
+  price: number;
+  imageUrl: string;
+};
+
+const CartItemBlock: React.FC<CartItemBlockProps> = (props) => {
+  const { id, title, count, type, size, price, imageUrl } = props;
+  const dispatch = useAppDispatch();
 
   const handleRemoveFromCard = () => {
     if (window.confirm("Are you sure?")) {
-      dispatch(removeFromCart({ id, size, type }));
+      dispatch(removeFromCart({ id, type, size } as CartItem));
     }
   };
 
   return (
     <div className="cart__item">
       <div className="cart__item-img">
-        <img
-          className="pizza-block__image"
-          src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
-          alt="Pizza"
-        />
+        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
       </div>
       <div className="cart__item-info">
         <h3>{title}</h3>
@@ -28,7 +34,7 @@ const PizzaBlock = (props) => {
       </div>
       <div className="cart__item-count">
         <div
-          onClick={() => dispatch(removeOneItem(props))}
+          onClick={() => dispatch(removeOneItem({ id, type, size, count } as CartItem))}
           className="button button--outline button--circle cart__item-count-minus">
           <svg
             width="10"
@@ -48,7 +54,7 @@ const PizzaBlock = (props) => {
         </div>
         <b>{count}</b>
         <div
-          onClick={() => dispatch(addToCart(props))}
+          onClick={() => dispatch(addToCart({ id, type, size, count } as CartItem))}
           className="button button--outline button--circle cart__item-count-plus">
           <svg
             width="10"
@@ -93,4 +99,4 @@ const PizzaBlock = (props) => {
   );
 };
 
-export default PizzaBlock;
+export default CartItemBlock;

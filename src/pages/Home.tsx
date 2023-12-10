@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
 import qs from "qs";
 
 import { fetchItems, selectItems } from "../redux/slices/itemsSlice";
@@ -17,14 +17,15 @@ import Skeleton from "../components/PizzaBlock/Skeleton";
 import Pagination from "../components/Pagination";
 import Error from "../components/Error";
 import { findSortType } from "../utils/itemsHelpers";
+import { useAppDispatch } from "../redux/store";
 import "../scss/app.scss";
 
-const Home = () => {
+const Home: React.FC = () => {
   const { sortType, categoryId, searchValue, currentPage } = useSelector(selectFilter);
   const isSearch = useRef(false);
   const isMounted = useRef(false);
-  const dispatch = useDispatch();
-  const { items, isLoading, dataFetchError } = useSelector(selectItems);
+  const dispatch = useAppDispatch();
+  const { items, dataFetchError, status } = useSelector(selectItems);
 
   const navigate = useNavigate();
 
@@ -33,7 +34,7 @@ const Home = () => {
   useEffect(() => {
     if (isMounted.current) {
       const queryParams = qs.stringify({
-        sortProperty: sortType.sortProperty,
+        sortBy: sortType.sortBy,
         categoryId,
         currentPage,
       });
@@ -44,9 +45,9 @@ const Home = () => {
   useEffect(() => {
     if (location.search && !isMounted.current) {
       const searchParams = qs.parse(location.search.substring(1));
-      const { sortProperty, categoryId, currentPage } = searchParams;
+      const { sortBy, categoryId, currentPage } = searchParams;
 
-      sortProperty && dispatch(setSortType(findSortType(sortProperty)));
+      sortBy && dispatch(setSortType(findSortType(String(sortBy))));
       categoryId && dispatch(setCategoryId(Number(categoryId)));
       currentPage && dispatch(setCurrentPage(Number(currentPage)));
 
@@ -57,21 +58,17 @@ const Home = () => {
 
   useEffect(() => {
     if (!isSearch.current) {
-      const url = "https://6556acbdbd4bcef8b6118adc.mockapi.io/api/items";
+      const url: string = "https://6556acbdbd4bcef8b6118adc.mockapi.io/api/items";
       dispatch(fetchItems(url));
     }
     isSearch.current = false;
   }, [sortType, categoryId, searchValue, currentPage, dispatch]);
 
-  const pizzas = [...Array(4)].map((_, i) => <Skeleton key={i} />);
-  const skeletons = items.map((pizza) => (
-    <Link key={pizza.id} to={`/pizza/${pizza.id}`}>
-      <PizzaBlock {...pizza} />
-    </Link>
-  ));
+  const skeletons = [...Array(4)].map((_, i) => <Skeleton key={i} />);
+  const pizzas = items.map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />);
 
   const content = () => {
-    return <div className="content__items">{isLoading ? pizzas : skeletons}</div>;
+    return <div className="content__items">{status === "loading" ? skeletons : pizzas}</div>;
   };
 
   return (

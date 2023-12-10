@@ -1,14 +1,18 @@
-import { useDispatch } from "react-redux";
 import ReactPaginate from "react-paginate";
 
 import { setCurrentPage } from "../../redux/slices/filterSlice";
 import styles from "./pagination.module.scss";
+import { useAppDispatch } from "../../redux/store";
 
-const Pagination = ({ currentPage }) => {
+type PaginationProps = {
+  currentPage: number;
+};
+
+const Pagination: React.FC<PaginationProps> = ({ currentPage }) => {
   const pageRange = 4;
   const pageCount = Math.ceil(10 / pageRange);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   return (
     <div className={styles.root}>

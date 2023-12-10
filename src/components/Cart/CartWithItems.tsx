@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-import CartItem from "./CartItem";
+import CartItem from "./CartItemBlock";
 import { clearCart, selectCart } from "../../redux/slices/cartSlice";
 import { totalItems, totalPrice } from "../../utils/itemsHelpers";
+import { useAppDispatch } from "../../redux/store";
 
 const CartWithItems = () => {
   const cart = useSelector(selectCart);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleClearCart = () => {
     if (window.confirm("Are you sure?")) {

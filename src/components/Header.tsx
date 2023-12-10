@@ -6,7 +6,7 @@ import { selectCart } from "../redux/slices/cartSlice";
 import { totalItems, totalPrice } from "../utils/itemsHelpers";
 import pizzaLogo from "../assets/img/pizza-logo.svg";
 
-const Header = () => {
+const Header: React.FC = () => {
   const cart = useSelector(selectCart);
 
   const { pathname } = useLocation();

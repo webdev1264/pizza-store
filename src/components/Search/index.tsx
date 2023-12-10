@@ -1,29 +1,31 @@
-import { useDispatch } from "react-redux";
-import { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
-import { setSearchValue } from "../../redux/slices/filterSlice";
+import { selectFilter, setSearchValue } from "../../redux/slices/filterSlice";
 import debounce from "../../utils/debounce";
 import styles from "./search.module.scss";
+import { useAppDispatch } from "../../redux/store";
+import { useSelector } from "react-redux";
 
 const Search = () => {
-  const [inputValue, setInputValue] = useState("");
-  const searchRef = useRef();
+  const filter = useSelector(selectFilter);
+  const [inputValue, setInputValue] = useState(filter.searchValue);
+  const searchRef = useRef<HTMLInputElement>(null);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    searchRef.current.focus();
-  });
+    searchRef.current?.focus();
+  }, [inputValue]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const updateSearchValue = useCallback(
-    debounce((value) => {
+    debounce((value: string) => {
       dispatch(setSearchValue(value));
     }, 250),
     [],
   );
 
-  const handleOnSearchChange = (e) => {
+  const handleOnSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
     updateSearchValue(e.target.value);
   };

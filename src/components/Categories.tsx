@@ -1,13 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { selectFilter, setCategoryId } from "../redux/slices/filterSlice";
+import { useAppDispatch } from "../redux/store";
+import { categories } from "../data/pizzaData";
 
-const Categories = () => {
+const Categories: React.FC = () => {
   const { categoryId } = useSelector(selectFilter);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const categories = ["Все", "Мясные", "Вегетарианская", "Гриль", "Острые", "Закрытые"];
   return (
     <div className="categories">
       <ul>

@@ -1,26 +1,29 @@
 import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { setSortType, selectFilter } from "../redux/slices/filterSlice";
-import { sortList } from "../data/pizzaData";
+import { SortItem, sortList } from "../data/pizzaData";
+import { useAppDispatch } from "../redux/store";
 
-const Sort = () => {
+const Sort: React.FC = () => {
   const [open, setOpen] = useState(false);
   const { sortType } = useSelector(selectFilter);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const sortRef = useRef();
+  const sortRef = useRef<HTMLDivElement>(null);
 
-  const handleSelectedChange = (i) => {
-    dispatch(setSortType(i));
+  const handleSelectedChange = (sortObj: SortItem) => {
+    dispatch(setSortType(sortObj));
     setOpen(false);
   };
 
   useEffect(() => {
-    const eventHandler = (e) => {
-      const isIncluded = e.composedPath().includes(sortRef.current);
-      if (!isIncluded) {
-        setOpen(false);
+    const eventHandler = (e: MouseEvent) => {
+      if (sortRef.current) {
+        const isIncluded = e.composedPath().includes(sortRef.current);
+        if (!isIncluded) {
+          setOpen(false);
+        }
       }
     };
 

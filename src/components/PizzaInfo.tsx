@@ -2,8 +2,25 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const PizzaInfo = () => {
-  const [item, setItem] = useState();
+const initialItemState = {
+  imageUrl: "",
+  title: "",
+  price: 0,
+};
+
+type Pizza = {
+  id: number;
+  imageUrl: string;
+  title: string;
+  types: number[];
+  sizes: number[];
+  price: number;
+  category: number;
+  rating: number;
+};
+
+const PizzaInfo: React.FC = () => {
+  const [item, setItem] = useState<Partial<Pizza>>(initialItemState);
   const params = useParams();
 
   const navigate = useNavigate();
