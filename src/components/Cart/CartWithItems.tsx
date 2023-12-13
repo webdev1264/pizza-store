@@ -5,10 +5,17 @@ import CartItem from "./CartItemBlock";
 import { clearCart, selectCart } from "../../redux/slices/cartSlice";
 import { totalItems, totalPrice } from "../../utils/itemsHelpers";
 import { useAppDispatch } from "../../redux/store";
+import { useEffect } from "react";
 
 const CartWithItems = () => {
   const cart = useSelector(selectCart);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (cart.length) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+  }, [cart, dispatch]);
 
   const handleClearCart = () => {
     if (window.confirm("Are you sure?")) {

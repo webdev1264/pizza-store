@@ -21,11 +21,11 @@ import { useAppDispatch } from "../redux/store";
 import "../scss/app.scss";
 
 const Home: React.FC = () => {
+  const { items, dataFetchError, status } = useSelector(selectItems);
   const { sortType, categoryId, searchValue, currentPage } = useSelector(selectFilter);
   const isSearch = useRef(false);
   const isMounted = useRef(false);
   const dispatch = useAppDispatch();
-  const { items, dataFetchError, status } = useSelector(selectItems);
 
   const navigate = useNavigate();
 

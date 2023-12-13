@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 import { isItemEqual } from "../../utils/itemsHelpers";
 import { RootState } from "../store";
+import { getDataFromLS } from "../../utils/getDataFromLS";
 
 export type CartItem = {
   id: string;
@@ -17,12 +18,15 @@ interface CartSliceState {
   items: CartItem[];
 }
 
-const initialState: CartSliceState = { items: [] };
+const initialState: CartSliceState = { items: getDataFromLS("cart") };
 
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    setCart(state, action: PayloadAction<CartItem[]>) {
+      state.items = action.payload;
+    },
     addToCart(state, action: PayloadAction<CartItem>) {
       const itemInCart = state.items.find((item) => isItemEqual(item, action.payload));
       if (itemInCart) {
@@ -52,6 +56,6 @@ const cartSlice = createSlice({
 
 export const selectCart = (state: RootState) => state.cart.items;
 
-export const { addToCart, removeFromCart, removeOneItem, clearCart } = cartSlice.actions;
+export const { setCart, addToCart, removeFromCart, removeOneItem, clearCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

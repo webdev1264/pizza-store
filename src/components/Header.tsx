@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+import { useAppDispatch } from "../redux/store";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -5,12 +7,21 @@ import Search from "./Search";
 import { selectCart } from "../redux/slices/cartSlice";
 import { totalItems, totalPrice } from "../utils/itemsHelpers";
 import pizzaLogo from "../assets/img/pizza-logo.svg";
-import { memo } from "react";
 
 const Header: React.FC = () => {
-  const cart = useSelector(selectCart);
+  const cartItems = useSelector(selectCart);
+  const dispatch = useAppDispatch();
 
   const { pathname } = useLocation();
+
+  const isMounted = useRef(false);
+
+  useEffect(() => {
+    if (isMounted.current) {
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+    }
+    isMounted.current = true;
+  }, [cartItems, dispatch]);
 
   const headerComponents = () => {
     return (
@@ -18,7 +29,7 @@ const Header: React.FC = () => {
         <Search />
         <div className="header__cart">
           <Link to="cart" className="button button--cart">
-            <span>{totalPrice(cart)} ₽</span>
+            <span>{totalPrice(cartItems)} ₽</span>
             <div className="button__delimiter"></div>
             <svg
               width="18"
@@ -48,7 +59,7 @@ const Header: React.FC = () => {
                 strokeLinejoin="round"
               />
             </svg>
-            <span>{totalItems(cart)}</span>
+            <span>{totalItems(cartItems)}</span>
           </Link>
         </div>
       </>
@@ -73,4 +84,4 @@ const Header: React.FC = () => {
   );
 };
 
-export default memo(Header);
+export default Header;
