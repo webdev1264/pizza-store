@@ -4,7 +4,7 @@ import CartWithItems from "../components/Cart/CartWithItems";
 import EmptyCart from "../components/Cart/EmptyCart";
 import { selectCart } from "../redux/cart/selectors";
 
-const Cart = () => {
+const Cart: React.FC = () => {
   const cart = useSelector(selectCart);
 
   if (cart.length === 0) {

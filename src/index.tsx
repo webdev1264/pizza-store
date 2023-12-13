@@ -1,11 +1,15 @@
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import loadable from "@loadable/component";
 
-import Cart from "./pages/Cart";
 import App from "./App";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import PizzaInfo from "./components/PizzaInfo";
+
+const Cart = loadable(() => import(/*webpackChunkName: "Cart"*/ "./pages/Cart"), {
+  fallback: <div>Loading...</div>,
+});
 
 const router = createBrowserRouter([
   {

@@ -34,7 +34,7 @@ const cartSlice = createSlice({
       }
     },
     clearCart() {
-      return initialState;
+      return { items: [] };
     },
   },
 });

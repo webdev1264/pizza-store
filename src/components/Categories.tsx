@@ -1,8 +1,8 @@
+import { memo } from "react";
 import { useSelector } from "react-redux";
 
 import { useAppDispatch } from "../redux/store";
 import { categories } from "../data/pizzaData";
-import { memo } from "react";
 import { selectCategoryId } from "../redux/filter/selectors";
 import { setCategoryId } from "../redux/filter/slice";
 
