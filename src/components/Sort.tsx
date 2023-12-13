@@ -1,9 +1,10 @@
 import { memo, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
-import { setSortType, selectSortType } from "../redux/slices/filterSlice";
 import { SortItem, sortList } from "../data/pizzaData";
 import { useAppDispatch } from "../redux/store";
+import { selectSortType } from "../redux/filter/selectors";
+import { setSortType } from "../redux/filter/slice";
 
 const Sort: React.FC = () => {
   const [open, setOpen] = useState(false);

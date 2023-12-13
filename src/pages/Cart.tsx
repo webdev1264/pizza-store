@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 
 import CartWithItems from "../components/Cart/CartWithItems";
 import EmptyCart from "../components/Cart/EmptyCart";
-import { selectCart } from "../redux/slices/cartSlice";
+import { selectCart } from "../redux/cart/selectors";
 
 const Cart = () => {
   const cart = useSelector(selectCart);

@@ -4,8 +4,8 @@ import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import Search from "./Search";
-import { selectCart } from "../redux/slices/cartSlice";
 import { totalItems, totalPrice } from "../utils/itemsHelpers";
+import { selectCart } from "../redux/cart/selectors";
 import pizzaLogo from "../assets/img/pizza-logo.svg";
 
 const Header: React.FC = () => {

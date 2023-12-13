@@ -1,10 +1,11 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 
-import { selectSearchValue, setSearchValue } from "../../redux/slices/filterSlice";
 import debounce from "../../utils/debounce";
 import styles from "./search.module.scss";
 import { useAppDispatch } from "../../redux/store";
 import { useSelector } from "react-redux";
+import { selectSearchValue } from "../../redux/filter/selectors";
+import { setSearchValue } from "../../redux/filter/slice";
 
 const Search = () => {
   const searchValue = useSelector(selectSearchValue);

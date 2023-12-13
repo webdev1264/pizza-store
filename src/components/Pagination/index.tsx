@@ -2,7 +2,7 @@ import { memo } from "react";
 import { useAppDispatch } from "../../redux/store";
 import ReactPaginate from "react-paginate";
 
-import { setCurrentPage } from "../../redux/slices/filterSlice";
+import { setCurrentPage } from "../../redux/filter/slice";
 import styles from "./pagination.module.scss";
 
 type PaginationProps = {

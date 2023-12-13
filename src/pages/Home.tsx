@@ -3,13 +3,6 @@ import { useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import qs from "qs";
 
-import { fetchItems, selectItems } from "../redux/slices/itemsSlice";
-import {
-  setCategoryId,
-  setCurrentPage,
-  setSortType,
-  selectFilter,
-} from "../redux/slices/filterSlice";
 import Sort from "../components/Sort";
 import Categories from "../components/Categories";
 import PizzaBlock from "../components/PizzaBlock";
@@ -18,6 +11,10 @@ import Pagination from "../components/Pagination";
 import Error from "../components/Error";
 import { findSortType } from "../utils/itemsHelpers";
 import { useAppDispatch } from "../redux/store";
+import { selectItems } from "../redux/items/selectors";
+import { selectFilter } from "../redux/filter/selectors";
+import { setCategoryId, setCurrentPage, setSortType } from "../redux/filter/slice";
+import { fetchItems } from "../redux/items/asyncActions";
 import "../scss/app.scss";
 
 const Home: React.FC = () => {

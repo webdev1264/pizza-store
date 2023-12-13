@@ -1,4 +1,5 @@
-import { CartItem, addToCart, removeFromCart, removeOneItem } from "../../redux/slices/cartSlice";
+import { addToCart, removeFromCart, removeOneItem } from "../../redux/cart/slice";
+import { CartItem } from "../../redux/cart/types";
 import { useAppDispatch } from "../../redux/store";
 
 type CartItemBlockProps = {

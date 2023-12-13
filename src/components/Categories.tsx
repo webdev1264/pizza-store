@@ -1,9 +1,10 @@
 import { useSelector } from "react-redux";
 
-import { selectCategoryId, setCategoryId } from "../redux/slices/filterSlice";
 import { useAppDispatch } from "../redux/store";
 import { categories } from "../data/pizzaData";
 import { memo } from "react";
+import { selectCategoryId } from "../redux/filter/selectors";
+import { setCategoryId } from "../redux/filter/slice";
 
 const Categories: React.FC = () => {
   const categoryId = useSelector(selectCategoryId);

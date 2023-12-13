@@ -1,26 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Item } from "../redux/items/types";
 
-const initialItemState = {
+const initialItemState: Partial<Item> = {
   imageUrl: "",
   title: "",
   price: 0,
 };
 
-type Pizza = {
-  id: number;
-  imageUrl: string;
-  title: string;
-  types: number[];
-  sizes: number[];
-  price: number;
-  category: number;
-  rating: number;
-};
-
 const PizzaInfo: React.FC = () => {
-  const [item, setItem] = useState<Partial<Pizza>>(initialItemState);
+  const [item, setItem] = useState(initialItemState);
   const params = useParams();
 
   const navigate = useNavigate();
