@@ -12,19 +12,19 @@ export type SortItem = {
   sortBy: SortBy;
 };
 
-type TypeNames = ["тонкое", "традиционное"];
+type TypeNames = ["thin", "traditional"];
 
-const typeNames: TypeNames = ["тонкое", "традиционное"];
+const typeNames: TypeNames = ["thin", "traditional"];
 
 const sortList: SortItem[] = [
-  { name: "популярности (убыв)", sortBy: SortBy.RATING_DESC },
-  { name: "популярности (возр)", sortBy: SortBy.RATING_ASC },
-  { name: "цене (убыв)", sortBy: SortBy.PRICE_DESC },
-  { name: "цене (возр)", sortBy: SortBy.PRICE_ASC },
-  { name: "алфавиту (убыв)", sortBy: SortBy.TITLE_DESC },
-  { name: "алфавиту (возр)", sortBy: SortBy.TITLE_ASC },
+  { name: "popularity (high to low)", sortBy: SortBy.RATING_DESC },
+  { name: "popularity (low to high)", sortBy: SortBy.RATING_ASC },
+  { name: "price (low to high)", sortBy: SortBy.PRICE_ASC },
+  { name: "price (high to low)", sortBy: SortBy.PRICE_DESC },
+  { name: "alphabet (A-Z)", sortBy: SortBy.TITLE_DESC },
+  { name: "alphabet (Z-A)", sortBy: SortBy.TITLE_ASC },
 ];
 
-const categories = ["Все", "Мясные", "Вегетарианская", "Гриль", "Острые", "Закрытые"];
+const categories = ["All", "Meat", "Vegetarian", "Grill", "Spicy", "Closed"];
 
 export { typeNames, sortList, categories };

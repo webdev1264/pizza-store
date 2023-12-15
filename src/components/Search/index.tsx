@@ -58,7 +58,7 @@ const Search = () => {
       )}
       <input
         className={styles.input}
-        placeholder="Поиск пиццы..."
+        placeholder="Search for pizza..."
         onChange={handleOnSearchChange}
         value={inputValue}
         ref={searchRef}

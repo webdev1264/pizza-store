@@ -74,9 +74,9 @@ const Home: React.FC = () => {
         <Categories />
         <Sort />
       </div>
-      <h2 className="content__title">Все пиццы</h2>
+      <h2 className="content__title">All pizzas</h2>
       {dataFetchError ? <Error /> : content()}
-      <Pagination currentPage={currentPage} />
+      <Pagination currentPage={currentPage} itemsCount={items.length} />
     </div>
   );
 };
