@@ -69,7 +69,7 @@ const Header: React.FC = () => {
   return (
     <header className="header">
       <div className="container">
-        <Link to="/">
+        <a href="/">
           <div className="header__logo">
             <img width="38" src={pizzaLogo} alt="Pizza logo" />
             <div>
@@ -77,7 +77,7 @@ const Header: React.FC = () => {
               <p>the most delicious pizza ever</p>
             </div>
           </div>
-        </Link>
+        </a>
         {pathname !== "/cart" && headerComponents()}
       </div>
     </header>
