@@ -37,8 +37,8 @@ const PizzaInfo: React.FC = () => {
     return (
       <>
         <img src={item.imageUrl} alt={item.title} />
-        <h2>Название: {item.title}</h2>
-        <h2>Цена: {item.price}</h2>
+        <h2>Name: {item.title}</h2>
+        <h2>Price: {item.price} $</h2>
       </>
     );
   };

@@ -5,9 +5,9 @@ const NotFoundBlock = () => {
     <div className={styles.root}>
       <h1>
         <span>😕</span> <br />
-        Ничего не найдено
+        Not found
       </h1>
-      <p className={styles.description}>Данная страница отсутсвует в нашем интернет-магазине.</p>
+      <p className={styles.description}>Sorry, this page is not available.</p>
     </div>
   );
 };
