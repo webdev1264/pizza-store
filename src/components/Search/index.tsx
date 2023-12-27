@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { selectSearchValue } from "../../redux/filter/selectors";
 import { setSearchValue } from "../../redux/filter/slice";
 
-const Search = () => {
+const Search: React.FC = () => {
   const searchValue = useSelector(selectSearchValue);
   const [inputValue, setInputValue] = useState(searchValue);
   const searchRef = useRef<HTMLInputElement>(null);

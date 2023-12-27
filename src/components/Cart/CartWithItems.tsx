@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import CartItem from "./CartItemBlock";
@@ -7,6 +6,7 @@ import { useAppDispatch } from "../../redux/store";
 import { useEffect } from "react";
 import { selectCart } from "../../redux/cart/selectors";
 import { clearCart } from "../../redux/cart/slice";
+import Link from "next/link";
 
 const CartWithItems = () => {
   const cart = useSelector(selectCart);
@@ -116,7 +116,7 @@ const CartWithItems = () => {
             </span>
           </div>
           <div className="cart__bottom-buttons">
-            <Link to="/" className="button button--outline button--add go-back-btn">
+            <Link href="/" className="button button--outline button--add go-back-btn">
               <svg
                 width="8"
                 height="14"

@@ -1,18 +1,21 @@
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { useAppDispatch } from "../redux/store";
-import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import Search from "./Search";
 import { totalItems, totalPrice } from "../utils/itemsHelpers";
 import { selectCart } from "../redux/cart/selectors";
 import pizzaLogo from "../assets/img/pizza-logo.svg";
+import Image from "next/image";
 
 const Header: React.FC = () => {
   const cartItems = useSelector(selectCart);
   const dispatch = useAppDispatch();
 
-  const { pathname } = useLocation();
+  const pathname = usePathname();
 
   const isMounted = useRef(false);
 
@@ -28,7 +31,7 @@ const Header: React.FC = () => {
       <>
         <Search />
         <div className="header__cart">
-          <Link to="cart" className="button button--cart">
+          <Link href="cart" className="button button--cart">
             <span>{totalPrice(cartItems)} $</span>
             <div className="button__delimiter"></div>
             <svg
@@ -71,7 +74,7 @@ const Header: React.FC = () => {
       <div className="container">
         <a href="/">
           <div className="header__logo">
-            <img width="38" src={pizzaLogo} alt="Pizza logo" />
+            <Image width={38} height={38} src={pizzaLogo} alt="Pizza logo" />
             <div>
               <h1>React Pizza</h1>
               <p>the most delicious pizza ever</p>

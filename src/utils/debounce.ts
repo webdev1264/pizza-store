@@ -1,4 +1,4 @@
-const debounce = <T extends any[]>(callback: (...args: T) => void, timeout = 200) => {
+const debounce = <T extends string[]>(callback: (...args: T) => void, timeout = 200) => {
   let timeoutId: ReturnType<typeof setTimeout>;
 
   return (...args: T) => {
