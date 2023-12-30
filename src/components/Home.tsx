@@ -71,7 +71,7 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="container">
+    <>
       <div className="content__top">
         <Categories />
         <Sort />
@@ -79,7 +79,7 @@ const Home: React.FC = () => {
       <h2 className="content__title">All pizzas</h2>
       {dataFetchError ? <Error /> : content()}
       <Pagination currentPage={currentPage} itemsCount={items.length} />
-    </div>
+    </>
   );
 };
 
