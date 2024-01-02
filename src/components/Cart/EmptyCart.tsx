@@ -10,7 +10,7 @@ const EmptyCart: React.FC = () => {
           The cart is empty <span>😕</span>
         </h2>
         <p>
-          Most likely, you haven't ordered pizza yet.
+          Most likely, you have not ordered pizza yet.
           <br />
           To order pizza, go to the main page.
         </p>

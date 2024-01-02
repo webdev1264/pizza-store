@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import Link from "next/link";
+import Image from "next/image";
 
 import { typeNames } from "../../data/pizzaData";
 import { useAppDispatch } from "../../redux/store";
@@ -46,7 +47,13 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, title, types, sizes, price,
   return (
     <div className="pizza-block">
       <Link href={`/pizza/${id}`}>
-        <img className="pizza-block__image" src={imageUrl} alt={`Pizza ${title}`} />
+        <Image
+          className="pizza-block__image"
+          src={imageUrl}
+          alt={`Pizza ${title}`}
+          width={260}
+          height={260}
+        />
       </Link>
       <h4 className="pizza-block__title">{title}</h4>
       <div className="pizza-block__selector">

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { cache } from "react";
+import Image from "next/image";
 
 import { Item } from "../../../redux/items/types";
 
@@ -24,7 +25,7 @@ export async function generateMetadata({ params: { id } }: PageParams) {
 }
 
 export function generateStaticParams() {
-  return [...new Array(10)].map((_, i) => ({ id: String(i + 1) }));
+  return [...new Array(10)].map((_, i) => ({ id: String(i) }));
 }
 
 export const dynamicParams = false;
@@ -34,7 +35,7 @@ const Page = async ({ params: { id } }: PageParams) => {
   return (
     <div className="container">
       <h1>PizzaInfo</h1>
-      <img src={item.imageUrl} alt={item.title} />
+      <Image src={item.imageUrl} alt={item.title} />
       <h2>Name: {item.title}</h2>
       <h2>Price: {item.price} $</h2>
     </div>

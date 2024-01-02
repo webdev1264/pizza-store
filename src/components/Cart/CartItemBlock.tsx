@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { addToCart, removeFromCart, removeOneItem } from "../../redux/cart/slice";
 import { CartItem } from "../../redux/cart/types";
 import { useAppDispatch } from "../../redux/store";
@@ -25,7 +26,7 @@ const CartItemBlock: React.FC<CartItemBlockProps> = (props) => {
   return (
     <div className="cart__item">
       <div className="cart__item-img">
-        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+        <Image className="pizza-block__image" src={imageUrl} alt="Pizza" />
       </div>
       <div className="cart__item-info">
         <h3>{title}</h3>
