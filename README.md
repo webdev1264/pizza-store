@@ -1,6 +1,6 @@
 # Pizza store challenge
 
-## Live site URL : [https://react-pizza-calw.onrender.com](https://react-pizza-calw.onrender.com)
+## Live site URL : [https://pizza-store-jet.vercel.app/](https://pizza-store-jet.vercel.app/)
 
 ## Available Scripts
 
