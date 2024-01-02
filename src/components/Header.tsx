@@ -31,7 +31,7 @@ const Header: React.FC = () => {
       <>
         <Search />
         <div className="header__cart">
-          <Link href="cart" className="button button--cart">
+          <Link href="/cart" className="button button--cart">
             <span>{totalPrice(cartItems)} $</span>
             <div className="button__delimiter"></div>
             <svg

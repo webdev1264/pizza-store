@@ -35,7 +35,7 @@ const Page = async ({ params: { id } }: PageParams) => {
   return (
     <div className="container">
       <h1>PizzaInfo</h1>
-      <Image src={item.imageUrl} alt={item.title} />
+      <Image src={item.imageUrl} alt={item.title} width={260} height={260} />
       <h2>Name: {item.title}</h2>
       <h2>Price: {item.price} $</h2>
     </div>
