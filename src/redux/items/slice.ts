@@ -15,6 +15,9 @@ const itemsSlice = createSlice({
     setItems(state, action: PayloadAction<Item[]>) {
       state.items = action.payload;
     },
+    resetDataFetchError(state) {
+      state.dataFetchError = "";
+    },
   },
   initialState,
   extraReducers: (builder) => {
@@ -34,5 +37,7 @@ const itemsSlice = createSlice({
     });
   },
 });
+
+export const { setItems, resetDataFetchError } = itemsSlice.actions;
 
 export default itemsSlice.reducer;

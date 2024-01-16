@@ -6,9 +6,12 @@ import { useAppDispatch } from "../../redux/store";
 import { useSelector } from "react-redux";
 import { selectSearchValue } from "../../redux/filter/selectors";
 import { setSearchValue } from "../../redux/filter/slice";
+import { selectItems } from "../../redux/items/selectors";
+import { resetDataFetchError } from "../../redux/items/slice";
 
 const Search: React.FC = () => {
   const searchValue = useSelector(selectSearchValue);
+  const { dataFetchError } = useSelector(selectItems);
   const [inputValue, setInputValue] = useState(searchValue);
   const searchRef = useRef<HTMLInputElement>(null);
 
@@ -29,11 +32,17 @@ const Search: React.FC = () => {
   const handleOnSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
     updateSearchValue(e.target.value);
+    if (dataFetchError) {
+      dispatch(resetDataFetchError());
+    }
   };
 
   const handleOnClearSearch = () => {
     setInputValue("");
     updateSearchValue("");
+    if (dataFetchError) {
+      dispatch(resetDataFetchError());
+    }
   };
 
   return (
