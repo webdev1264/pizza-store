@@ -20,7 +20,7 @@ const fetchDataCached = cache(fetchData);
 export async function generateMetadata({ params: { id } }: PageParams) {
   const item = await fetchDataCached(id);
   return {
-    title: item.title || "React Pizza",
+    title: item.title || "Pizza store",
   };
 }
 

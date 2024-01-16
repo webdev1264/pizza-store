@@ -76,7 +76,7 @@ const Header: React.FC = () => {
           <div className="header__logo">
             <Image width={38} height={38} src={pizzaLogo} alt="Pizza logo" />
             <div>
-              <h1>React Pizza</h1>
+              <h1>Pizza store</h1>
               <p>the most delicious pizza ever</p>
             </div>
           </div>

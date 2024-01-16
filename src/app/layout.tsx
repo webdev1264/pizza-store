@@ -9,7 +9,7 @@ const nunito = Nunito({
 });
 
 export const metadata = {
-  title: "React pizza",
+  title: "Pizza store",
   description: "The most delicious pizza ever",
 };
 
