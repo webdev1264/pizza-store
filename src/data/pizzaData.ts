@@ -1,4 +1,4 @@
-export enum SortBy {
+enum SortBy {
   RATING_DESC = "rating desc",
   RATING_ASC = "rating asc",
   PRICE_DESC = "price desc",
@@ -7,7 +7,7 @@ export enum SortBy {
   TITLE_ASC = "title asc",
 }
 
-export type SortItem = {
+type SortItem = {
   name: string;
   sortBy: SortBy;
 };
@@ -27,4 +27,6 @@ const sortList: SortItem[] = [
 
 const categories = ["All", "Meat", "Vegetarian", "Grill", "Spicy", "Closed"];
 
-export { typeNames, sortList, categories };
+export { typeNames, sortList, categories, SortBy };
+
+export type { SortItem };

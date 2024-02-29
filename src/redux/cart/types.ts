@@ -1,4 +1,4 @@
-export type CartItem = {
+type CartItem = {
   id: string;
   title: string;
   price: number;
@@ -8,6 +8,8 @@ export type CartItem = {
   imageUrl: string;
 };
 
-export interface CartSliceState {
+interface CartSliceState {
   items: CartItem[];
 }
+
+export type { CartItem, CartSliceState };

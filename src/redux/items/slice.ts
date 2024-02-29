@@ -11,6 +11,7 @@ const initialState: ItemsSliceState = {
 
 const itemsSlice = createSlice({
   name: "items",
+  initialState,
   reducers: {
     setItems(state, action: PayloadAction<Item[]>) {
       state.items = action.payload;
@@ -19,7 +20,6 @@ const itemsSlice = createSlice({
       state.dataFetchError = "";
     },
   },
-  initialState,
   extraReducers: (builder) => {
     builder.addCase(fetchItems.pending, (state) => {
       state.status = Status.LOADING;
